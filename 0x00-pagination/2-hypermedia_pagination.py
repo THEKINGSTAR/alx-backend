@@ -83,7 +83,7 @@ class Server:
         total_pages = math.ceil(total_rows / page_size)
 
         prev_page = page - 1
-        if prev_page < 0:
+        if prev_page <= 0:
             prev_page = None
 
         next_page = page + 1
