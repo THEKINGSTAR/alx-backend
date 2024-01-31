@@ -19,7 +19,7 @@ class LRUCache(BaseCaching):
         """ Initiliaze
         """
         super().__init__()
-        self.cache_data = {}
+        # self.cache_data = {}
         self.cache_data = OrderedDict()
 
 
@@ -44,6 +44,6 @@ class LRUCache(BaseCaching):
         """
         if key not in self.cache_data:
             return None
-
+        self.cache_data.move_to_end(key)
         key_val = self.cache_data[key]
         return (key_val)
