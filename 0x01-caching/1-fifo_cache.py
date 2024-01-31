@@ -36,7 +36,6 @@ class FIFOCache(BaseCaching):
                 self.cache_data.pop(first_key)
             self.cache_data[key] = item
 
-
     def get(self, key):
         """ Get an item by key
         """
