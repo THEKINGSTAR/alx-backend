@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-""" BaseCaching FIFOCache module
+""" BaseCaching LIFOCache module
 """
 
 
 from base_caching import BaseCaching
 
 
-class FIFOCache(BaseCaching):
+class LIFOCache(BaseCaching):
     """ BaseCachin defines:
       - caching system
       - where data are stored (in a dictionary)
@@ -31,9 +31,11 @@ class FIFOCache(BaseCaching):
         """
         if key is not None and item is not None:
             if len(self.cache_data) == self.MAX_ITEMS:
-                first_key = next(iter(self.cache_data))
-                print(f"DISCARD: {first_key}")
-                self.cache_data.pop(first_key)
+                last = self.cache_data.popitem()
+                # last = list(self.cache_data.keys())[-1]
+                # print(f"DISCARD: {last[0]}")
+                # del self.cache_data[last]
+                print(f"DISCARD: {last[0]}")
             self.cache_data[key] = item
 
     def get(self, key):
