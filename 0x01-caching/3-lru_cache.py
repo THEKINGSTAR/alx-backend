@@ -7,7 +7,6 @@ from base_caching import BaseCaching
 from collections import OrderedDict
 
 
-
 class LRUCache(BaseCaching):
     """ BaseCachin defines:
       - caching system
@@ -21,7 +20,6 @@ class LRUCache(BaseCaching):
         super().__init__()
         # self.cache_data = {}
         self.cache_data = OrderedDict()
-
 
     def print_cache(self):
         """ Print the cache
