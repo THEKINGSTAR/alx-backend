@@ -5,7 +5,9 @@ Deletion-resilient hypermedia pagination
 
 import csv
 import math
+from typing import Dict
 from typing import List
+from typing import Union
 
 
 class Server:
@@ -39,7 +41,43 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """Dataset indexed by sorting position, starting at 0
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict[str, Union[str, List[list], int]]:
         """
-        pass
+        Dataset indexed by sorting position, starting at 0
+        The method should return a dictionary with the following key-value pairs:
+            ```index```: the current start index of the return page.
+            That is the index of the first item in the current page.
+            For example if requesting page 3 with ```page_size 20```,
+            and no data was removed from the dataset, the current index should be 60.
+            ```next_index```: the next index to query with.
+            That should be the index of the first item after the last item on the current page.
+            ```page_size```: the current page size
+            ```data```: the actual page of the dataset
+
+        Requirements/Behavior:
+            Use assert to verify that index is in a valid range.
+            If the user queries index 0, page_size 10,
+            they will get rows indexed 0 to 9 included.
+            If they request the next index (10) with page_size 10,
+            but rows 3, 6 and 7 were deleted,
+            the user should still receive rows indexed 10 to 19 included.
+        """
+        assert isinstance(index, int) and index >= 0,\
+            "index is not in a valid range"
+        
+        dataset = self.dataset()
+
+        start_index = index * page_size
+        next_index = page_size * (index + 1)
+
+        while next_index < len(dataset) and not dataset[next_index]:
+            next_index += 1
+            
+        data = dataset[start_index:next_index]
+
+        hepr_dict = {"index": start_index,
+                     "next_index": next_index,
+                     "page_size": page_size,
+                     "data": data
+                     }
+        return (hepr_dict)
