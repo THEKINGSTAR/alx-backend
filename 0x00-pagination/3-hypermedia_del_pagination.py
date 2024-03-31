@@ -49,13 +49,7 @@ class Server:
         The method should return a dictionary with the following
         key-value pairs:
             ```index```: the current start index of the return page.
-            That is the index of the first item in the current page.
-            For example if requesting page 3 with ```page_size 20```,
-            and no data was removed from the dataset,
-            the current index should be 60.
             ```next_index```: the next index to query with.
-            That should be the index of the first item after
-            the last item on the current page.
             ```page_size```: the current page size
             ```data```: the actual page of the dataset
 
@@ -69,7 +63,7 @@ class Server:
         """
         assert isinstance(index, int) and index >= 0,\
             "index is not in a valid range"
-
+        assert 0 <= index < len(self.dataset()), "Index is out of range."
         dataset = self.dataset()
 
         start_index = index * page_size
@@ -81,8 +75,8 @@ class Server:
         data = dataset[start_index:next_index]
 
         hepr_dict = {"index": start_index,
+                     "data": data,
                      "next_index": next_index,
-                     "page_size": page_size,
-                     "data": data
+                     "page_size": page_size
                      }
         return (hepr_dict)
