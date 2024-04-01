@@ -75,7 +75,7 @@ class Server:
 
         hepr_dict = {"index": start_index,
                      "data": data,
-                     "next_index": next_index,
-                     "page_size": page_size
+                     "page_size": page_size,
+                     "next_index": next_index
                      }
         return (hepr_dict)
