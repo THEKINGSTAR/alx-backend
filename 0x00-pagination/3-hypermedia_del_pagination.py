@@ -52,7 +52,6 @@ class Server:
             ```next_index```: the next index to query with.
             ```page_size```: the current page size
             ```data```: the actual page of the dataset
-
         Requirements/Behavior:
             Use assert to verify that index is in a valid range.
             If the user queries index 0, page_size 10,
