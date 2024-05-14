@@ -24,8 +24,8 @@ def index():
     “Hello world” as header (<h1>).
     """
     template = render_template('1-index.html',
-                               title='Welcome to Holberton',
-                               header='Hello world')
+                               title="Welcome to Holberton",
+                               header="Hello world")
     return template
 
 
